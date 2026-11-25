@@ -23,15 +23,18 @@ TEXT = (
     "toner, and a deadline."
 )
 
+# Single output path for the entry file (created by main()).
+OUT_PATH = os.path.join("/output", "entry.txt")
+
 
 def main() -> None:
     # The gate requires 1-199 characters of UTF-8 text, not only whitespace.
     assert 1 <= len(TEXT) <= 199, "entry must be 1-199 characters"
     assert TEXT.strip() == TEXT, "entry must not start or end with whitespace"
     assert "\n" not in TEXT, "entry must be exactly one line"
-    out_dir = "/output"
+    out_dir = os.path.dirname(OUT_PATH)
     os.makedirs(out_dir, exist_ok=True)
-    with open(os.path.join(out_dir, "entry.txt"), "w", encoding="utf-8") as fh:
+    with open(OUT_PATH, "w", encoding="utf-8") as fh:
         fh.write(TEXT)
 
 
